@@ -1,0 +1,946 @@
+/*
+ * MudrikDidtribution
+ *
+ * The logo sets the language. Its three purple tones are the three groups,
+ * and its pill is the shape of the controls. Sizes follow DESIGN.md:
+ * desktop from 1024px, tablet from 720px, phone below 720px.
+ */
+
+@font-face {
+  font-family: 'Heebo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/heebo-hebrew.woff2') format('woff2');
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Heebo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/heebo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --bg: #f8f6fb;
+  --surface: #ffffff;
+  --text: #221228;
+  --text-muted: #5f5269;
+  --control-border: #8d8399;
+  --divider: #e6e0ee;
+  --primary: #321946;
+  --primary-hover: #45275f;
+  --selected-fill: #efe9f6;
+  --focus: #6b5490;
+
+  /* The three group tones, dark to light, as in the logo. */
+  --group-1: #321946;
+  --group-2: #6b5490;
+  --group-3: #d5cae3;
+  --group-3-border: #8b75a2;
+
+  --side: 32px;
+  --topbar: 76px;
+  --logo: 28px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Heebo', 'Assistant', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+h1,
+h2,
+p,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+::selection {
+  background: #d5cae3;
+  color: #221228;
+}
+
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+main:focus {
+  outline: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Group tones ---------- */
+
+.tone-1 {
+  background: var(--group-1);
+  border-color: var(--group-1);
+  color: #ffffff;
+}
+
+.tone-2 {
+  background: var(--group-2);
+  border-color: var(--group-2);
+  color: #ffffff;
+}
+
+.tone-3 {
+  background: var(--group-3);
+  border-color: var(--group-3-border);
+  color: var(--text);
+}
+
+.tone-empty {
+  background: transparent;
+  border-color: var(--control-border);
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+/* ---------- Frame ---------- */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.topbar {
+  padding: 0 var(--side);
+}
+
+.topbar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 20px;
+  max-width: 1240px;
+  /* The divider sits below the bar height, as in the design. */
+  min-height: calc(var(--topbar) + 1px);
+  margin: 0 auto;
+  /* Breathing room for the rare case the bar wraps on a very narrow screen. */
+  padding-block: 8px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.logo {
+  line-height: 0;
+}
+
+.logo img {
+  display: block;
+  width: auto;
+  height: var(--logo);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.counter {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.counter strong {
+  font-size: 22px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-of {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ---------- Controls ---------- */
+
+.text-button,
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 2px;
+  background: none;
+  border: 0;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  cursor: pointer;
+}
+
+.pill-button {
+  min-height: 44px;
+  padding: 0 22px;
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  border-radius: 999px;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pill-button:disabled,
+.primary-button:disabled {
+  background: transparent;
+  border: 1.5px dashed var(--control-border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/*
+ * The copy button keeps the width of its resting label while the label
+ * confirms the copy. Both labels share one grid cell.
+ */
+.copy-button {
+  display: inline-grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.copy-button > span {
+  grid-area: 1 / 1;
+}
+
+.copy-button-sizer {
+  visibility: hidden;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 0 46.5px;
+  background: var(--primary);
+  border: 1.5px solid var(--primary);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* ---------- Selection screen ---------- */
+
+.page--select {
+  padding: 0 var(--side) 56px;
+}
+
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 36px;
+}
+
+.field {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  padding: 18px 22px;
+  background: var(--surface);
+  border: 1.5px solid var(--control-border);
+  border-radius: 16px;
+  color: var(--text);
+  caret-color: var(--primary);
+  font-size: 22px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.field--tall {
+  min-height: 240px;
+}
+
+.field::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.entry-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 18px;
+}
+
+.entry-foot .pill-button {
+  flex: none;
+}
+
+.hint {
+  min-width: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.hint--lead {
+  color: var(--text);
+  font-size: 19px;
+}
+
+.bank {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 36px;
+}
+
+.bank-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 20px;
+}
+
+.bank-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 28px;
+}
+
+.bank-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.bank-grid li {
+  display: flex;
+  min-width: 0;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--control-border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: start;
+}
+
+button.cell {
+  cursor: pointer;
+}
+
+button.cell:hover {
+  border-color: var(--primary);
+}
+
+.cell--selected {
+  background: var(--selected-fill);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+.cell-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.check {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--surface);
+  border: 1.5px solid var(--control-border);
+  border-radius: 6px;
+  color: #ffffff;
+}
+
+.cell--selected .check {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Name management: the check box gives way to a delete action. */
+.cell--manage {
+  justify-content: space-between;
+  gap: 4px;
+  padding-block: 0;
+  padding-inline-end: 0;
+}
+
+.cell--manage .cell-name {
+  padding-block: 8px;
+}
+
+.cell-delete {
+  flex: none;
+  align-self: stretch;
+  min-width: 44px;
+  padding: 0 12px;
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  cursor: pointer;
+}
+
+.cell-delete:focus-visible {
+  outline-offset: -3px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 28px;
+  padding-top: 44px;
+}
+
+.actions--first-run {
+  padding-top: 40px;
+}
+
+.actions--first-run .primary-button {
+  padding: 0 44px;
+}
+
+.forecast {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.forecast-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.forecast-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 34px;
+  padding: 0 8px;
+  border-width: 1.5px;
+  border-style: solid;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.forecast-pill.tone-empty {
+  border-style: dashed;
+}
+
+.forecast-label {
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.storage-note {
+  padding-top: 28px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ---------- Results screen ---------- */
+
+.results-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 12px;
+}
+
+.results-nav .text-link {
+  padding: 0 10px;
+}
+
+.page--results {
+  padding: 36px var(--side) 56px;
+}
+
+.groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 44px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.page--results .storage-note {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 12px;
+  min-height: 56px;
+  padding: 4px 26px;
+  border-width: 1.5px;
+  border-style: solid;
+  border-radius: 999px;
+}
+
+.group-head.tone-empty {
+  border-style: dashed;
+}
+
+.group-head h2 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.group-head p {
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.group-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * The name size is set on the row so the number tag can centre itself on the
+ * first line of the name. 26px at 768 and 40px at 1366, linear in between.
+ */
+.group-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 74px;
+  padding: 14px 10px 13px;
+  border-bottom: 1px solid var(--divider);
+  font-size: clamp(26px, calc(8.02px + 2.341vw), 40px);
+  line-height: 1.18;
+}
+
+.tag-slot {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 1.18em;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-width: 1.5px;
+  border-style: solid;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.group-name {
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.group-empty {
+  min-height: 74px;
+  padding: 14px 10px 13px;
+  color: var(--text-muted);
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* ---------- Narrow desktop: 1024 to 1199 ---------- */
+
+@media (max-width: 1199.98px) {
+  .bank-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Tablet: 720 to 1023 ---------- */
+
+@media (max-width: 1023.98px) {
+  :root {
+    --side: 24px;
+    --topbar: 68px;
+    --logo: 20px;
+  }
+
+  .counter,
+  .label,
+  .text-button,
+  .text-link,
+  .pill-button {
+    font-size: 15px;
+  }
+
+  .counter strong {
+    font-size: 20px;
+  }
+
+  .bank-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .results-nav {
+    gap: 0 8px;
+  }
+
+  .results-nav .text-link {
+    padding: 0 6px;
+  }
+
+  .results-nav .pill-button {
+    padding: 0 16px;
+  }
+
+  .page--results {
+    padding: 28px var(--side) 40px;
+  }
+
+  .groups {
+    gap: 24px 22px;
+  }
+
+  .group {
+    gap: 6px;
+  }
+
+  .group-head {
+    min-height: 46px;
+    padding: 4px 18px;
+  }
+
+  .group-head h2 {
+    font-size: 18px;
+  }
+
+  .group-head p {
+    font-size: 14px;
+  }
+
+  .group-list li {
+    gap: 10px;
+    min-height: 54px;
+    padding: 11px 6px 10px;
+  }
+
+  .tag {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+  }
+
+  .group-empty {
+    min-height: 54px;
+    padding: 11px 6px 10px;
+    font-size: 17px;
+  }
+}
+
+/* ---------- Phone: below 720 ---------- */
+
+@media (max-width: 719.98px) {
+  :root {
+    --side: 20px;
+    --topbar: 60px;
+    --logo: 18px;
+  }
+
+  /* Keeps a focused name clear of the docked main button. */
+  html {
+    scroll-padding-bottom: 150px;
+  }
+
+  .counter-of,
+  .hint-wide {
+    display: none;
+  }
+
+  .pill-button {
+    font-size: 16px;
+  }
+
+  .page--select {
+    padding-bottom: 18px;
+  }
+
+  .entry {
+    gap: 8px;
+    padding-top: 24px;
+  }
+
+  .field {
+    min-height: 84px;
+    padding: 14px 16px;
+    font-size: 19px;
+  }
+
+  .field--tall {
+    min-height: 200px;
+  }
+
+  .entry-foot {
+    gap: 8px 14px;
+  }
+
+  .hint {
+    font-size: 14px;
+  }
+
+  .hint--lead {
+    flex: 1 1 100%;
+    font-size: 17px;
+  }
+
+  /* First run: the sentence takes the full width and the button follows. */
+  .entry-foot:has(.hint--lead) {
+    flex-wrap: wrap;
+  }
+
+  .bank {
+    gap: 6px;
+    padding-top: 24px;
+  }
+
+  .bank-actions {
+    gap: 0 18px;
+  }
+
+  .bank-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .cell {
+    min-height: 50px;
+    font-size: 16px;
+  }
+
+  .actions,
+  .actions--first-run {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding-top: 28px;
+  }
+
+  /* With names in the bank, the main button stays within reach. */
+  .actions--docked {
+    position: sticky;
+    bottom: 0;
+    margin-top: 14px;
+    padding-top: 14px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    background: var(--bg);
+    border-top: 1px solid var(--divider);
+  }
+
+  .primary-button,
+  .actions--first-run .primary-button {
+    display: flex;
+    min-height: 60px;
+    padding: 0 24px;
+    font-size: 19px;
+  }
+
+  .forecast {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .forecast-pill {
+    min-width: 40px;
+    height: 30px;
+    font-size: 15px;
+  }
+
+  .forecast-label {
+    font-size: 15px;
+  }
+
+  .storage-note {
+    padding-top: 14px;
+  }
+
+  .results-nav .text-link {
+    padding: 0;
+  }
+
+  .page--results {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 20px var(--side) 36px;
+  }
+
+  .results-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .results-buttons .pill-button {
+    min-height: 48px;
+    padding: 0 12px;
+    background: var(--surface);
+  }
+
+  .results-buttons .pill-button:disabled {
+    background: transparent;
+  }
+
+  .groups {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    width: 100%;
+  }
+
+  .page--results .storage-note {
+    padding-top: 0;
+    margin: 0;
+  }
+
+  .group-head {
+    min-height: 48px;
+    padding: 4px 20px;
+  }
+
+  .group-head h2 {
+    font-size: 20px;
+  }
+
+  .group-head p {
+    font-size: 15px;
+  }
+
+  .group-list li {
+    min-height: 58px;
+    padding: 11px 8px 10px;
+    font-size: 30px;
+  }
+
+  .tag {
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+  }
+
+  .group-empty {
+    min-height: 58px;
+    padding: 11px 8px 10px;
+  }
+}
+
+/* ---------- Narrow phone: below 480 ---------- */
+
+@media (max-width: 479.98px) {
+  .bank-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
