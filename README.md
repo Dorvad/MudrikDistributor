@@ -20,6 +20,10 @@ npm run preview    # הגשת dist, http://localhost:4173
 
 תיקיית `dist` היא אתר סטטי שאפשר להגיש מכל שרת קבצים, גם מתת־נתיב.
 
+## פריסה
+
+הקובץ `.github/workflows/deploy.yml` בונה ובודק כל Pull Request, ובכל דחיפה ל־`main` גם מפרסם את `dist` ל־GitHub Pages. הגדרה חד־פעמית במאגר: Settings ← Pages ← Source: **GitHub Actions**. האתר המפורסם ציבורי. השמות נשמרים בדפדפן בלבד ואינם עולים לשרת.
+
 ## בדיקות
 
 ```bash
